@@ -3,7 +3,9 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM ghcr.io/ublue-os/bazzite:stable
+FROM ghcr.io/blue-build/base-images/fedora-base:latest
+COPY --from=ghcr.io/ublue-os/brew:latest /system_files /files
+COPY --from=ghcr.io/projectbluefin/common:latest /system_files/shared/usr/bin/luks* /files/usr/bin
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest
