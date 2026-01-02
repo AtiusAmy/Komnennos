@@ -3,9 +3,9 @@ FROM scratch AS ctx
 COPY build_files /
 
 # Base Image
-FROM ghcr.io/blue-build/base-images/fedora-base:latest
+FROM quay.io/fedora/fedora-bootc:43
 COPY --from=ghcr.io/ublue-os/brew:latest /system_files /
-COPY --from=ghcr.io/projectbluefin/common:latest /system_files/shared/usr/bin/luks* /files/usr/bin
+COPY --from=ghcr.io/projectbluefin/common:latest /system_files/shared/usr/bin/luks* /usr/bin
 COPY system_files /
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest
