@@ -114,8 +114,7 @@ jobs:
             --tag ${IMAGE_NAME}:${DEFAULT_TAG} \
             .
       - name: Rechunk Image
-        run: sudo podman run --rm --privileged -v /var/lib/containers:/var/lib/containers --entrypoint /usr/libexec/bootc-base-imagectl "localhost/${IMAGE_NAME}:${DEFAULT_TAG}" rechunk --max-layers 112 "localhost/${IMAGE_NAME}:${DEFAULT_TAG}" "localhost/${IMAGE_NAME}:${DEFAULT_TAG}"
-
+        run: sudo podman run --rm --privileged -v /var/lib/containers:/var/lib/containers --entrypoint /usr/libexec/bootc-base-imagectl "localhost/${IMAGE_NAME}:${DEFAULT_TAG}" rechunk --max-layers 60 "localhost/${IMAGE_NAME}:${DEFAULT_TAG}" "localhost/${IMAGE_NAME}:${DEFAULT_TAG}"
 
       # Rechunk is a script that we use on Universal Blue to make sure there isnt a single huge layer when your image gets published.
       # This does not make your image faster to download, just provides better resumability and fixes a few errors.
