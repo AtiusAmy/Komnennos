@@ -236,6 +236,18 @@ dnf install -y --setopt=install_weak_deps=False \
 
 sed --sandbox -i -e '/gnome_keyring.so/ s/-auth/auth/ ; /gnome_keyring.so/ s/-session/session/' /etc/pam.d/greetd
 
+dnf config-manager addrepo --from-repofile=https://negativo17.org/repos/fedora-multimedia.repo
+dnf config-manager setopt fedora-multimedia.enabled=0
+dnf -y install --enablerepo=fedora-multimedia \
+    -x PackageKit* \
+    ffmpeg libavcodec @multimedia gstreamer1-plugins-{bad-free,bad-free-libs,good,base} lame{,-libs} libjxl ffmpegthumbnailer
+
+dnf config-manager addrepo --from-repofile=https://negativo17.org/repos/fedora-cdrtools.repo
+dnf config-manager setopt fedora-cdrtools.enabled=0
+dnf -y install --enablerepo=fedora-cdrtools \
+    cdrecord mkisofs cdda2wav
+
+
 
 # Add Flathub to the image for eventual application
 mkdir -p /etc/flatpak/remotes.d/
@@ -262,3 +274,6 @@ tee /usr/lib/sysusers.d/greeter.conf <<'EOF'
 g greeter 767
 u greeter 767 "Greetd greeter"
 EOF
+
+dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf5 install -y broadcom-wl akmod-wl
