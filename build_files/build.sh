@@ -283,7 +283,7 @@ systemctl enable flatpak-preinstall.service
 systemctl enable --global bazaar.service
 systemctl enable rechunker-group-fix.service
 systemctl enable greetd
-systemctl enable dms.service
+systemctl enable --global dms.service
 
 
 
