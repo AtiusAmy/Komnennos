@@ -38,7 +38,7 @@ dnf -y install --enablerepo=fedora-multimedia \
     ffmpeg libavcodec @multimedia gstreamer1-plugins-{bad-free,bad-free-libs,good,base} lame{,-libs} libjxl ffmpegthumbnailer
 
 dnf -y copr enable amyiscoolz/komnenos-logos
-dnf -y install komnenos-logos xwayland
+dnf -y install komnenos-logos xorg-x11-server-Xwayland
 
 # These were manually picked out from a Bluefin comparison with `rpm -qa --qf="%{NAME}\n" `
 dnf -y install \
