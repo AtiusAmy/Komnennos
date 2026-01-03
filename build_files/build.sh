@@ -12,7 +12,6 @@ set -ouex pipefail
 
 set -xeuo pipefail
 
-rpm --erase --nodeps fedora-logos
 dnf install -y https://repo.almalinux.org/almalinux/10/AppStream/x86_64/os/Packages/almalinux-logos-100.3-3.el10_0.x86_64.rpm
 
 
