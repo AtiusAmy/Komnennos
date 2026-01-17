@@ -235,9 +235,7 @@ dnf -y install \
     gnome-disk-utility \
     gnome-keyring \
     gnome-keyring-pam \
-    greetd \
     git \
-    greetd-selinux \
     just \
     nautilus \
     openssh-askpass \
@@ -250,9 +248,7 @@ dnf -y install \
     wireplumber \
     wl-clipboard \
     xdg-desktop-portal-gnome \
-    xdg-desktop-portal-gtk \
     xdg-user-dirs \
-    trivalent \
     trivalent-subresource-filter \
     run0edit \
     adw-gtk3-theme \
@@ -317,6 +313,16 @@ tee /usr/lib/sysusers.d/greeter.conf <<'EOF'
 g greeter 767
 u greeter 767 "Greetd greeter"
 EOF
+
+dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+sed -i "s/enabled=.*/enabled=0/g" /etc/yum.repos.d/docker-ce.repo
+dnf -y install --enablerepo=docker-ce-stable \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-ce \
+    docker-ce-cli \
+    docker-compose-plugin \
+    docker-model-plugin
 
 
 dnf -y copr disable secureblue/trivalent
