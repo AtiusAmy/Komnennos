@@ -236,6 +236,7 @@ dnf -y install \
     gnome-keyring \
     gnome-keyring-pam \
     greetd \
+    git \
     greetd-selinux \
     just \
     nautilus \
@@ -257,7 +258,9 @@ dnf -y install \
     adw-gtk3-theme \
     swaybg \
     labwc-tweaks
-
+dnf -y copr enable solopasha/hyprland
+dnf -y copr disable solopasha/hyprland
+dnf -y --enablerepo copr:copr.fedorainfracloud.org:solopasha:hyprland install waypaper
 
 rm -rf /usr/share/doc/just
 
@@ -300,6 +303,13 @@ systemctl enable rechunker-group-fix.service
 systemctl enable greetd
 systemctl enable --global dms.service
 
+git clone "https://github.com/AtiusAmy/komdots.git" /usr/share/komnenos/komdots
+tee /usr/lib/tmpfiles.d/99-greeter-config.conf <<'EOF'
+L /var/cache/dms-greeter/settings.json - greeter greeter - /usr/share/komnenos/komdots/dot_config/DankMaterialShell/settings.json
+L /var/cache/dms-greeter/session.json - greeter greeter - /usr/share/komnenos/komdots/private_dot_local/state/DankMaterialShell/session.json
+L /var/cache/dms-greeter/dms-colors.json - greeter greeter - /usr/share/komnenos/komdots/dot_cache/DankMaterialShell/dms-colors.json
+L /var/cache/dms-greeter/colors.json - greeter greeter - /usr/share/komnenos/komdots/dot_cache/DankMaterialShell/dms-colors.json
+EOF
 
 
 
@@ -309,6 +319,5 @@ u greeter 767 "Greetd greeter"
 EOF
 
 
-sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/secureblue.repo
 dnf -y copr disable secureblue/trivalent
 dnf -y copr disable secureblue/run0edit
